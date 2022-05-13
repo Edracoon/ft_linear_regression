@@ -46,7 +46,7 @@ function getMSE1(kilometters, prices, paramTheta0, paramTheta1) {
         let residual = estimatePrice(kilometters[i], paramTheta0, paramTheta1) - prices[i];
         sosr += Math.pow(residual, 2); // Sum with power 2
     }
-    return sosr;
+    return (sosr / data.length);
 }
 
 function getMSE2(kilometters, prices, tmpTheta0, tmpTheta1) {
