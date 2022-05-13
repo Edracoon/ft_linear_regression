@@ -49,10 +49,10 @@ function getMSE1(kilometters, prices, paramTheta0, paramTheta1) {
     return (sosr / data.length);
 }
 
-function getMSE2(kilometters, prices, tmpTheta0, tmpTheta1) {
+function getMSE2(kilometters, prices, paramTheta0, paramTheta1) {
     sosr = 0;
     for (let i = 0 ; i < data.length ; i++) {
-        let residual = (estimatePrice(kilometters[i], tmpTheta0, tmpTheta1) - prices[i]) * kilometters[i];
+        let residual = (estimatePrice(kilometters[i], paramTheta0, paramTheta1) - prices[i]) * kilometters[i];
         sosr += Math.pow(residual, 2); // Sum with power 2
     }
     return(sosr / data.length); // Faire la moyenne des résiduts
@@ -77,9 +77,9 @@ function linearRegression() {
     let MSE1 = getMSE1(kilometters, prices, theta0, theta1); // Sum Of Squared Residual divided by the length of the data
     let MSE2 = getMSE2(kilometters, prices, theta0, theta1); // Sum Of Squared Residual divided by the length of the data
 
-    console.log('MSE1 -> ', Math.sqrt(MSE1), '\MSE2 -> ',  MSE2);
+    console.log('MSE1 -> ', MSE1, '\MSE2 -> ',  MSE2);
 
-    //            ( 0.1 ?)
+    //            ( 0.1 ?)      maybe don't need to sqrt() ?
     tmpTheta0 = learningRate * Math.sqrt(MSE1);
     // Not working (insanely huge values going fast into Infinity)
     // tmpTheta1 = learningRate * Math.sqrt(MSE2);
