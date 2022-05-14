@@ -43,10 +43,10 @@ function estimatePrice(kilometters, paramTheta0, paramTheta1) {
 function getMSE1(kilometters, prices, paramTheta0, paramTheta1) {
     sosr = 0;
     for (let i = 0 ; i < data.length ; i++) {
-        let residual = estimatePrice(kilometters[i], paramTheta0, paramTheta1) - prices[i];
+        let residual =  prices[i] - estimatePrice(kilometters[i], paramTheta0, paramTheta1);
         sosr += Math.pow(residual, 2); // Sum with power 2
     }
-    return (sosr / data.length);
+    return (sosr / data.length); // === (1 / m) * sosr
 }
 
 function getMSE2(kilometters, prices, paramTheta0, paramTheta1) {
@@ -55,7 +55,7 @@ function getMSE2(kilometters, prices, paramTheta0, paramTheta1) {
         let residual = (estimatePrice(kilometters[i], paramTheta0, paramTheta1) - prices[i]) * kilometters[i];
         sosr += Math.pow(residual, 2); // Sum with power 2
     }
-    return(sosr / data.length); // Faire la moyenne des résiduts
+    return(sosr / data.length); // === (1 / m) * sosr
 }
 
 function linearRegression() {
@@ -63,6 +63,7 @@ function linearRegression() {
         console.log("linearRegression: Need data !");
         return ;
     }
+    // Get data in tab 
     let kilometters = data.map((value) => parseInt(value.km));
     let prices = data.map((value) => parseInt(value.price));
 
@@ -77,12 +78,13 @@ function linearRegression() {
     let MSE1 = getMSE1(kilometters, prices, theta0, theta1); // Sum Of Squared Residual divided by the length of the data
     let MSE2 = getMSE2(kilometters, prices, theta0, theta1); // Sum Of Squared Residual divided by the length of the data
 
-    console.log('MSE1 -> ', MSE1, '\MSE2 -> ',  MSE2);
+    console.log('MSE1 -> ', MSE1, '\nMSE2 -> ',  MSE2);
+    console.log('Math.sqrt(MSE1) -> ', Math.sqrt(MSE1), '\nMath.sqrt(MSE2) -> ',  Math.sqrt(MSE2));
 
     //            ( 0.1 ?)      maybe don't need to sqrt() ?
-    tmpTheta0 = learningRate * Math.sqrt(MSE1);
+    // tmpTheta0 = learningRate * Math.sqrt(MSE1);
     // Not working (insanely huge values going fast into Infinity)
-    // tmpTheta1 = learningRate * Math.sqrt(MSE2);
+    tmpTheta1 = learningRate * Math.sqrt(MSE2);
 
     // Update global theta
     theta0 = tmpTheta0;
@@ -110,6 +112,10 @@ function linearRegression() {
     //         }
     //     }
     // });
+}
+
+function calculateLine() {
+    let points  = []
 }
 
 function launchGraph() {
