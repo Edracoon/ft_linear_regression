@@ -12,7 +12,12 @@ if (len(sys.argv) > 1 and sys.argv[1] == '-debug'):
 
 # === Read and Parse CSV File === #
 def parseFileCSV():
-    lines = open("data.csv").read().split('\n')
+    try:
+        file = open("data.csv")
+    except:
+        print('Error: file \"data.csv\" not found.')
+        exit(0)
+    lines = file.read().split('\n')
     dataX = []
     dataY = []
     i = 0
