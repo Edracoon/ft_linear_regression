@@ -1,4 +1,4 @@
-# ft_linear_regression
+# Introduction in Machine Learning : Linear Regression
 
 Une introduction au machine learning
 
@@ -7,7 +7,8 @@ Hypothèse de type y = a \* x + b:
 ![Screen Shot 2022-05-11 at 12 51 22 PM](https://user-images.githubusercontent.com/77042040/167832913-a7613b76-8260-4e2e-ba86-74b575587fe9.png)
 
 
-# MSE
+# The Mean Squared Error :
+
 MSE is the Mean Squared Error of our prediction function y = a * x + b.
 It is expressed by E like so :
 
@@ -28,7 +29,7 @@ For n = length of the data ; a = lastly computed a and b = lastly computed 'b' b
         steps grand = trouver vite la solution avec des grands 'pas'
         steps petit = trouver une solution plus precise qui prends en compte les details
 
-# Formule :
+# Partial Derivative Formulas :
 
     # Derivee partielle de E par respect a 'a' = -2/n * SUM(0,n)( xi * (yi - (axi + b)))
     # Derivee partielle de E par respect a 'b' = -2/n * SUM(0,n)( yi - (axi + b))
