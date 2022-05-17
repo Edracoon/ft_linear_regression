@@ -25,11 +25,6 @@ def parseFileCSV():
     return [dataX, dataY]
 
 
-# MSE: E = (1/n) * SUM(0,n)((yi - (a * xi + b)) ** 2)
-# Derivee partielle de E par respect a 'a' = -2/n * SUM(0,n)( xi * (yi - (axi + b)))
-# Derivee partielle de E par respect a 'b' = -2/n * SUM(0,n)( yi - (axi + b))
-
-
 def mean_squared_error(a, b, data):
     n = len(data)
     mse = 0
@@ -54,7 +49,6 @@ def gradientDescentAlgorithm(curr_a, curr_b, data, LearningRate):
         a_step += (1/n) * ((2 * x) * ((curr_a * x + curr_b) - y))
         b_step += (1/n) * (2 * ((curr_a * x + curr_b) - y))
 
-    # On soustrait donc notre descente pour aller dans le sens opposer et reduire les erreurs
     a = curr_a - LearningRate * a_step
     b = curr_b - LearningRate * b_step
 
@@ -85,8 +79,8 @@ def normalizeData(data):
     for i in range(len(data[0])):
         x = data[0][i]
         y = data[1][i]
-        newX = (x - xmin) / (xmax - xmin)  # Normalization Formula for X
-        newY = (y - ymin) / (ymax - ymin)  # Normalization Formula for Y
+        newX = (x - xmin) / (xmax - xmin)
+        newY = (y - ymin) / (ymax - ymin)
         dataX.append(newX)
         dataY.append(newY)
     return [dataX, dataY]
@@ -101,20 +95,18 @@ a = 0
 b = 0
 LearningRate = 0.01
 Iteration = 0
-
+delta_mse = -1
 
 if DEBUG:
     print('x\t\t\ty')
     for i in range(len(normData[0])):
         print(normData[0][i], '\t', normData[1][i])
 
-delta_mse = -1
+
 # We want a precise delta before ending the learning
 while abs(delta_mse) > 0.000000001:
-    previous_mse = mean_squared_error(
-        a, b, normData)             # Previous SE
-    a, b = gradientDescentAlgorithm(
-        a, b, normData, LearningRate)  # Compute a step
+    previous_mse = mean_squared_error(a, b, normData)
+    a, b = gradientDescentAlgorithm(a, b, normData, LearningRate)
 
     # Difference between Previous and Current MSE
     delta_mse = previous_mse - mean_squared_error(a, b, normData)
