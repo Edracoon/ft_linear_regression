@@ -7,7 +7,11 @@ Hypothèse de type y = a \* x + b:
 ![Screen Shot 2022-05-11 at 12 51 22 PM](https://user-images.githubusercontent.com/77042040/167832913-a7613b76-8260-4e2e-ba86-74b575587fe9.png)
 
 
-# MSE: E = (1/n) _ SUM(0,n)((yi - (a _ xi + b)) \*\* 2)
+# MSE
+MSE is the Mean Squared Error of our prediction function y = a * x + b.
+It is expressed by E like so :
+
+E = (1/n) * SUM(0,n)((yi - (a _ xi + b)) ** 2)
 
 # Gradient Descent Algorithm :
 
